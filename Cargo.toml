@@ -1,0 +1,28 @@
+[package]
+name = "vtdl"
+version = "0.1.0"
+edition = "2024"
+authors = ["zekroTJA <contact@zekro.de>"]
+description = "CLI tool to download packages from vanillatweaks.net"
+readme = "README.md"
+license = "MIT"
+license-file = "LICENSE"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+reqwest = { version = "0.12.20", features = ["blocking", "json", "rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0.140"
+zip = "4.2.0"
+
+
+[profile.release]
+strip = true
+opt-level = "s"
+codegen-units = 1
+lto = true
+panic = "unwind"
