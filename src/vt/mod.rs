@@ -10,13 +10,18 @@ use zip::ZipArchive;
 pub mod models;
 
 const BASE_ADDRESS: &str = "https://vanillatweaks.net";
+const SHARE_PREFIX: &str = "https://vanillatweaks.net/share#";
 
 pub fn decode_share_code(share_code: &str) -> Result<PackageInfo> {
-    Ok(reqwest::blocking::get(format!(
+    let share_code = strip_sharecode(share_code);
+
+    let info = reqwest::blocking::get(format!(
         "{BASE_ADDRESS}/assets/server/sharecode.php?code={share_code}"
     ))?
     .error_for_status()?
-    .json()?)
+    .json()?;
+
+    Ok(info)
 }
 
 fn get_archive_link(version: &str, packages: Packages) -> Result<ZipPacksResponse> {
@@ -60,4 +65,11 @@ pub fn download_archive(version: &str, packages: Packages, out_dir: &Path) -> Re
     let mut archive = ZipArchive::new(Cursor::new(&buf))?;
     archive.extract(out_dir)?;
     Ok(())
+}
+
+fn strip_sharecode(code: &str) -> &str {
+    match code.strip_prefix(SHARE_PREFIX) {
+        Some(v) => v,
+        None => code,
+    }
 }
