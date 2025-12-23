@@ -13,12 +13,13 @@ pub type Packages = HashMap<String, Vec<String>>;
 #[serde(rename_all = "lowercase")]
 pub enum ShareCodeType {
     Datapacks,
+    CraftingTweaks,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PackageInfo {
     #[serde(rename = "type")]
-    pub typ: Option<ShareCodeType>,
+    pub typ: ShareCodeType,
     pub version: Option<String>,
     pub packs: Packages,
 }

@@ -49,7 +49,7 @@ impl Command for Download {
                 anyhow::anyhow!("no version is specified in the project info or given as parameter")
             })?;
 
-        vt::download_archive(version, info.packs, &self.out_dir)
+        vt::download_archive(version, &info, &self.out_dir)
     }
 }
 

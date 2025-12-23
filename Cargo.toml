@@ -1,6 +1,6 @@
 [package]
 name = "vtdl"
-version = "1.1.0"
+version = "1.2.0"
 edition = "2024"
 authors = ["zekroTJA <contact@zekro.de>"]
 description = "CLI tool to download packages from vanillatweaks.net"
